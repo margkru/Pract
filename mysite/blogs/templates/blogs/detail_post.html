@@ -1,1 +1,7 @@
-{{post}}
+<h1>{{ post.title }}</h1>
+<ul>
+    <p>{{ post.post_text}}</p>
+    <img src="/blogs{{ MEDIA_URL }}{{ post.post_img }}" height="250">
+    <p>{{ post.pub_date}}</p>
+</ul>
+

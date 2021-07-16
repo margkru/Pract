@@ -12,8 +12,8 @@ class Post(models.Model):
     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     post_text = models.TextField()
-    post_img = models.ImageField(upload_to='images')
-    pub_date = models.DateTimeField('date published')
+    post_img = models.ImageField(upload_to='images', blank=True, null=True)
+    pub_date = models.DateTimeField('date published', default=timezone.now)
 
     def __str__(self):
         return self.title

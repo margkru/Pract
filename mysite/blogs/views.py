@@ -1,15 +1,38 @@
-from django.shortcuts import get_object_or_404, render
+from django.views import generic
+from django.views.generic import CreateView
+
 from .models import Blog, Post
 
-def index(request):
-    latest_blogs_list = Blog.objects.all()
-    context = { 'latest_blogs_list': latest_blogs_list}
-    return render(request, 'blogs/index.html', context)
+class IndexView(generic.ListView):
+    template_name = 'blogs/index.html'
+    context_object_name = 'latest_blogs_list'
 
-def detail_blog(request, blog_id):
-    blog = get_object_or_404(Blog, pk=blog_id)
-    return render(request, 'blogs/detail_blog.html', {'blog': blog})
+    def get_queryset(self):
+        return Blog.objects.all()
 
-def detail_post(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
-    return render(request, 'blogs/detail_post.html', {'post': post})
+
+class DetailBlogView(generic.DetailView):
+    model = Blog
+    template_name = 'blogs/detail_blog.html'
+
+class DetailPostView(generic.DetailView):
+    model = Post
+    template_name = 'blogs/detail_post.html'
+
+class BlogCreate(generic.CreateView):
+    pass
+
+class BlogDelete(generic.DeleteView):
+    pass
+
+class BlogUpdate(generic.UpdateView):
+    pass
+
+class PostCreate(generic.CreateView):
+    pass
+
+class PostDelete(generic.DeleteView):
+    pass
+
+class PostUpdate(generic.UpdateView):
+    pass
