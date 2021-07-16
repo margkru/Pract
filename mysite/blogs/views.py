@@ -1,5 +1,6 @@
 from django.views import generic
 from django.views.generic import CreateView
+from django.urls import reverse, reverse_lazy
 
 from .models import Blog, Post
 
@@ -20,19 +21,37 @@ class DetailPostView(generic.DetailView):
     template_name = 'blogs/detail_post.html'
 
 class BlogCreate(generic.CreateView):
-    pass
+    model = Blog
+    fields = '__all__'
+
+    def get_success_url(self):
+        return reverse('blogs:detail_blog', kwargs={'pk': self.object.pk})
 
 class BlogDelete(generic.DeleteView):
-    pass
+    model = Blog
+    success_url = reverse_lazy('blogs:index')
 
 class BlogUpdate(generic.UpdateView):
-    pass
+    model = Blog
+    fields = '__all__'
+
+    def get_success_url(self):
+        return reverse('blogs:detail_blog', kwargs={'pk': self.object.pk})
 
 class PostCreate(generic.CreateView):
-    pass
+    model = Post
+    fields = '__all__'
+
+    def get_success_url(self):
+        return reverse('blogs:detail_post', kwargs={'pk': self.object.pk})
 
 class PostDelete(generic.DeleteView):
-    pass
+    model = Post
+    success_url = reverse_lazy('blogs:index')
 
 class PostUpdate(generic.UpdateView):
-    pass
+    model = Post
+    fields = '__all__'
+
+    def get_success_url(self):
+        return reverse('blogs:detail_post', kwargs={'pk': self.object.pk})

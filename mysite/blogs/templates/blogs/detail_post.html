@@ -1,7 +1,10 @@
 <h1>{{ post.title }}</h1>
 <ul>
     <p>{{ post.post_text}}</p>
-    <img src="/blogs{{ MEDIA_URL }}{{ post.post_img }}" height="250">
+    {% if post.post_img %}
+        <img src="/blogs{{ MEDIA_URL }}{{ post.post_img }}" height="250">
+    {% endif %}
     <p>{{ post.pub_date}}</p>
 </ul>
 
+<a href="/blogs/blog{{post.blog.id}}">{{post.blog}}</a>
